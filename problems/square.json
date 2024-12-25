@@ -1,5 +1,8 @@
 [
     {
+        "name": "square"
+    },
+    {
         "description": "Write a program that reads an integer from the standard input and writes the square of that integer to the standard output."
     },
     {

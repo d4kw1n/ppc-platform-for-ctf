@@ -1,0 +1,34 @@
+version: "3.9"
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: online-judge-app
+    ports:
+      - "5000:5000"
+    volumes:
+      - .:/app                 # Mount toàn bộ thư mục hiện tại vào /app trong container
+      - ./problems:/app/problems  # Đảm bảo thư mục problems vẫn được mount riêng
+    environment:
+      FLASK_APP: app.py
+      FLASK_RUN_HOST: 0.0.0.0
+      FLASK_ENV: development    # Chế độ development để tự động reload khi thay đổi mã
+    depends_on:
+      - database
+
+  database:
+    image: postgres:13
+    container_name: online-judge-db
+    environment:
+      POSTGRES_USER: judge_user
+      POSTGRES_PASSWORD: judge_password
+      POSTGRES_DB: online_judge
+    ports:
+      - "5432:5432"
+    volumes:
+      - judge_data:/var/lib/postgresql/data
+
+volumes:
+  judge_data:

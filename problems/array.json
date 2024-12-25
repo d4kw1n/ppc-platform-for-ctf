@@ -1,21 +1,24 @@
 [
     {
+        "name": "array"
+    },
+    {
         "description": "Write a program that reads a sequence of integers from the standard input and writes them to the standard output in the same order."
     },
     {
         "test_cases": [
             {
-                "input": "1 2 3 4 5 6",
+                "input": "6 1 2 3 4 5 6",
                 "expected_output": "1 2 3 4 5 6",
                 "hidden": false
             },
             {
-                "input": "9 8 7 6 5 4 3 2 1 0",
+                "input": "10 9 8 7 6 5 4 3 2 1 0",
                 "expected_output": "9 8 7 6 5 4 3 2 1 0",
                 "hidden": false
             },
             {
-                "input": "21 32 98 172 832 82 981 73 87123 2821 8382",
+                "input": "11 21 32 98 172 832 82 981 73 87123 2821 8382",
                 "expected_output": "21 32 98 172 832 82 981 73 87123 2821 8382",
                 "hidden": true
             }

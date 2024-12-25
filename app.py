@@ -25,8 +25,8 @@ def run_code():
     except FileNotFoundError:
         return jsonify({"error": "Problem not found"}), 404
 
-    test_cases = problem_data[1]['test_cases']
-    flag = problem_data[2]['flag']
+    test_cases = problem_data[2]['test_cases']
+    flag = problem_data[3]['flag']
 
     # Define file extensions and commands for each language
     language_config = {
@@ -132,15 +132,37 @@ def square():
     except FileNotFoundError:
         return "Problem data not found", 404
 
-    description = problem_data[0]['description']
-    test_cases = problem_data[1]['test_cases']
+    name = problem_data[0]['name']
+    description = problem_data[1]['description']
+    test_cases = problem_data[2]['test_cases']
 
-    return render_template('square.html', description=description, test_cases=test_cases)
+    return render_template('square.html', description=description, test_cases=test_cases, name=name)
 
+@app.route('/array')
+def array():
+    try:
+        with open('problems/array.json') as f:
+            problem_data = json.load(f)
+    except FileNotFoundError:
+        return "Problem data not found", 404
+
+    name = problem_data[0]['name']
+    description = problem_data[1]['description']
+    test_cases = problem_data[2]['test_cases']
+
+    return render_template('array.html', description=description, test_cases=test_cases, name=name)
 
 @app.route('/')
 def index():
-    return render_template('index.html')
+    problems = []
+    problems_dir = 'problems'
+
+    if os.path.exists(problems_dir):
+        for filename in os.listdir(problems_dir):
+            if filename.endswith('.json'):
+                problems.append(filename.replace('.json', ''))
+
+    return render_template('index.html', problems=problems)
 
 if __name__ == '__main__':
     app.run(debug=True)
