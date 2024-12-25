@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Online Judge</title>
+    
+</head>
+<body>
+    {% include 'header.html' %}
+    
+    <main>
+        <section class="description">
+            <h2>Problem Description</h2>
+            <p>{{ description }}</p>
+        </section>
+        <section class="test-cases">
+            <h2>Sample Test Cases</h2>
+            <ul>
+                {% for test in test_cases %}
+                <li>
+                    <strong>Input:</strong> {{ test.input }}<br>
+                    <strong>Output:</strong> {{ test.expected_output }}
+                </li>
+                {% endfor %}
+            </ul>
+        </section>
+        <div class="editor-container">
+            <label for="languageSelector">Select Language:</label>
+            <select id="languageSelector" onchange="changeLanguage()">
+                <option value="python">Python</option>
+                <option value="javascript">JavaScript</option>
+                <option value="java">Java</option>
+                <option value="cpp">C++</option>
+                <option value="c">C</option>
+            </select>
+            <textarea id="codeEditor"></textarea>
+        </div>
+        <button class="button" onclick="runCode()">Run Code</button>
+        <div class="flag" id="flagArea"></div>
+        <div class="output" id="outputArea">Results will be displayed here...</div>
+    </main>
+    {% include 'footer.html' %}
+    
+    
+</body>
+</html>

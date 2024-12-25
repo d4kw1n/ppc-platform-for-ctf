@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Online Judge</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.5/codemirror.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
+        }
+        header {
+            background-color: #0074D9;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            font-size: 1.8rem;
+        }
+        main {
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .description, .test-cases {
+            width: 80%;
+            background: white;
+            margin-bottom: 20px;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .description h2, .test-cases h2 {
+            margin-top: 0;
+            color: #333;
+        }
+        .test-cases ul {
+            list-style: none;
+            padding: 0;
+        }
+        .test-cases li {
+            background: #f9f9f9;
+            margin: 10px 0;
+            padding: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-family: 'Courier New', monospace;
+        }
+        .test-cases li strong {
+            color: #0074D9;
+        }
+        .editor-container {
+            width: 80%;
+            margin-bottom: 10px;
+        }
+        .button {
+            margin-top: 10px;
+            padding: 10px 20px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            font-size: 1rem;
+            font-weight: bold;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+        .button:hover {
+            background-color: #218838;
+        }
+        .output {
+            width: 80%;
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #000;
+            color: #0f0;
+            border: 1px solid #333;
+            border-radius: 10px;
+            font-family: 'Courier New', monospace;
+            white-space: pre-wrap;
+            overflow: auto;
+            height: 200px;
+            box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+        .flag {
+            width: 80%;
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #155724;
+            color: #f8f9fa;
+            border: 1px solid #f5c6cb;
+            border-radius: 10px;
+            font-family: 'Courier New', monospace;
+            white-space: pre-wrap;
+            overflow: auto;
+            height: 100px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    {% include 'header.html' %}
+    
+    <main>
+        <section class="description">
+            <h2>Problem Description</h2>
+            <p>Write a program that reads an integer <code>n</code> from the input and prints its square.</p>
+        </section>
+        <section class="test-cases">
+            <h2>Sample Test Cases</h2>
+            <ul>
+                <li><strong>Input:</strong> 5<br><strong>Output:</strong> 25</li>
+                <li><strong>Input:</strong> 3<br><strong>Output:</strong> 9</li>
+                <li><strong>Input:</strong> 10<br><strong>Output:</strong> 100</li>
+            </ul>
+        </section>
+        <div class="editor-container">
+            <label for="languageSelector">Select Language:</label>
+            <select id="languageSelector" onchange="changeLanguage()">
+                <option value="python">Python</option>
+                <option value="javascript">JavaScript</option>
+                <option value="java">Java</option>
+                <option value="cpp">C++</option>
+                <option value="c">C</option>
+            </select>
+            <textarea id="codeEditor"></textarea>
+        </div>
+        <button class="button" onclick="runCode()">Run Code</button>
+        <div class="flag" id="flagArea"></div>
+        <div class="output" id="outputArea">Results will be displayed here...</div>
+    </main>
+    {% include 'footer.html' %}
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.5/codemirror.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.5/mode/python/python.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.5/mode/javascript/javascript.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.5/mode/clike/clike.min.js"></script>
+    <script>
+        let editor = CodeMirror.fromTextArea(document.getElementById("codeEditor"), {
+            lineNumbers: true,
+            mode: "python",
+            theme: "default",
+            indentUnit: 4,
+            matchBrackets: true,
+        });
+
+        function changeLanguage() {
+            const language = document.getElementById("languageSelector").value;
+            let mode;
+            switch (language) {
+                case "python":
+                    mode = "python";
+                    break;
+                case "javascript":
+                    mode = "javascript";
+                    break;
+                case "java":
+                    mode = "text/x-java";
+                    break;
+                case "cpp":
+                    mode = "text/x-c++src";
+                    break;
+                case "c":
+                    mode = "text/x-csrc";
+                    break;
+            }
+            editor.setOption("mode", mode);
+        }
+
+        async function runCode() {
+            const code = editor.getValue();
+            const language = document.getElementById("languageSelector").value;
+            const outputArea = document.getElementById("outputArea");
+            outputArea.textContent = "Running tests...";
+
+            try {
+                const response = await fetch(`/api/run?problem=square&language=${language}`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ code }),
+                });
+
+                if (!response.ok) {
+                    throw new Error('Failed to execute code');
+                }
+
+                const result = await response.json();
+
+                // Display output in terminal-style format
+                outputArea.textContent = '';
+                if (result.results && result.results.length > 0) {
+                    result.results.forEach((test, index) => {
+                        outputArea.textContent += `Test Case ${index + 1}\n`;
+                        outputArea.textContent += `Input: ${test.input}\n`;
+                        outputArea.textContent += `Output: ${test.output || 'No Output'}\n`;
+                        if (test.expected) {
+                            outputArea.textContent += `Expected: ${test.expected}\n`;
+                        }
+                        outputArea.textContent += `Result: ${test.result}\n`;
+                        if (test.error) {
+                            outputArea.textContent += `Error: ${test.error}\n`;
+                        }
+                        outputArea.textContent += `-----------------------------\n`;
+                    });
+                    if (result.flag) {
+                        document.getElementById("flagArea").style.display = 'block';
+                        document.getElementById("flagArea").textContent = "🎉 Congratulations! All test cases passed. Here is your flag: 🚩" + result.flag;
+                    }
+                } else {
+                    outputArea.textContent = 'No test results available.';
+                }
+            } catch (error) {
+                outputArea.textContent = `Error: ${error.message}`;
+            }
+        }
+    </script>
+</body>
+</html>
