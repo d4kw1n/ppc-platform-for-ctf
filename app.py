@@ -105,10 +105,12 @@ def run_code():
         except subprocess.TimeoutExpired:
             check = False
             results.append({"input": test['input'], "result": "Failed", "message": "Time limit exceeded"})
+            break
 
         except Exception as e:
             check = False
             results.append({"input": test['input'], "result": "Failed", "message": str(e)})
+            break
 
         finally:
             if os.path.exists(temp_file_path):
