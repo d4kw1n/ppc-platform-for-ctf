@@ -98,7 +98,7 @@ def run_code():
                     results.append({"input": test['input'], "output": "hidden", "result": "Passed", "expected": "hidden"})           
             else:
                 if not test['hidden']:
-                    results.append({"index": index, "input": test['input'], "output": output, "expected": test['expected_output'], "result": "Failed"}) # Fix output
+                    results.append({"index": index, "input": test['input'], "output": "Hidden", "expected": test['expected_output'], "result": "Failed"}) # Fix output
                 else:
                     results.append({"input": test['input'], "result": "Failed", "message": f"Test case {index} failed"})
                 check = False
