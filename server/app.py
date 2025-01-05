@@ -2,7 +2,6 @@ from flask import Flask, request, jsonify
 import subprocess
 import tempfile
 import os
-from flask import render_template
 import json
 
 app = Flask(__name__)
@@ -10,23 +9,26 @@ app = Flask(__name__)
 @app.route('/api/run', methods=['POST'])
 def run_code():
     # Get parameters from request
-    problem = request.args.get('problem', '')
-    language = request.args.get('language', 'python')
     data = request.get_json()
     code = data.get('code', '')
+    problem = data.get('problem', '')
+    language = data.get('language', 'python')
 
     if not code:
         return jsonify({"error": "No code provided"}), 400
 
     # Read test cases from file
     try:
-        with open(f'problems/{problem}.json') as f:
+        with open(f'problems/problems.json') as f:
             problem_data = json.load(f)
     except FileNotFoundError:
         return jsonify({"error": "Problem not found"}), 404
 
-    test_cases = problem_data[2]['test_cases']
-    flag = problem_data[3]['flag']
+    problem_data = next((p for p in problem_data if p['id'] == problem), None)
+    if not problem_data:
+        return jsonify({"error": "Problem not found"}), 404
+    test_cases = problem_data['test_cases']
+    flag = problem_data['flag']
 
     # Define file extensions and commands for each language
     language_config = {
@@ -96,7 +98,7 @@ def run_code():
                     results.append({"input": test['input'], "output": "hidden", "result": "Passed", "expected": "hidden"})           
             else:
                 if not test['hidden']:
-                    results.append({"index": index, "input": test['input'], "output": output, "expected": test['expected_output'], "result": "Failed"})
+                    results.append({"index": index, "input": test['input'], "output": output, "expected": test['expected_output'], "result": "Failed"}) # Fix output
                 else:
                     results.append({"input": test['input'], "result": "Failed", "message": f"Test case {index} failed"})
                 check = False
@@ -125,46 +127,5 @@ def run_code():
     else:
         return jsonify({"results": results})
 
-
-@app.route('/square')
-def square():
-    try:
-        with open('problems/square.json') as f:
-            problem_data = json.load(f)
-    except FileNotFoundError:
-        return "Problem data not found", 404
-
-    name = problem_data[0]['name']
-    description = problem_data[1]['description']
-    test_cases = problem_data[2]['test_cases']
-
-    return render_template('square.html', description=description, test_cases=test_cases, name=name)
-
-@app.route('/array')
-def array():
-    try:
-        with open('problems/array.json') as f:
-            problem_data = json.load(f)
-    except FileNotFoundError:
-        return "Problem data not found", 404
-
-    name = problem_data[0]['name']
-    description = problem_data[1]['description']
-    test_cases = problem_data[2]['test_cases']
-
-    return render_template('array.html', description=description, test_cases=test_cases, name=name)
-
-@app.route('/')
-def index():
-    problems = []
-    problems_dir = 'problems'
-
-    if os.path.exists(problems_dir):
-        for filename in os.listdir(problems_dir):
-            if filename.endswith('.json'):
-                problems.append(filename.replace('.json', ''))
-
-    return render_template('index.html', problems=problems)
-
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=False, port=5001)

@@ -1,0 +1,114 @@
+[
+    {
+        "id": "419284912",
+        "public": true,
+        "name": "array",
+        "submissions": 0,
+        "tags": [
+            "array",
+            "test"
+        ],
+        "points": 100,
+        "description": "Write a program that reads a sequence of integers from the standard input and writes them to the standard output in the same order.\n\nInput: n a1 a2 ... an (n is the number of integers, a1, a2, ..., an are the integers)\nOutput: a1 a2 ... an",
+        "test_cases": [
+            {
+                "input": "6 1 2 3 4 5 6",
+                "expected_output": "1 2 3 4 5 6",
+                "hidden": false
+            },
+            {
+                "input": "10 9 8 7 6 5 4 3 2 1 0",
+                "expected_output": "9 8 7 6 5 4 3 2 1 0",
+                "hidden": false
+            }
+        ],
+        "flag": "VSL{9r128r1hr912r981h2r}"
+    },
+    {
+        "id": "419284913",
+        "public": true,
+        "tags": [
+            "array"
+        ],
+        "name": "square",
+        "points": 100,
+        "submissions": 0,
+        "description": "Write a program that reads an integer from the standard input and writes the square of that integer to the standard output.",
+        "test_cases": [
+            {
+                "input": "5",
+                "expected_output": "25",
+                "hidden": false
+            },
+            {
+                "input": "3",
+                "expected_output": "9",
+                "hidden": false
+            },
+            {
+                "input": "10",
+                "expected_output": "100",
+                "hidden": true
+            }
+        ],
+        "flag": "VSL{9r128r1hr912r981h2r}"
+    },
+    {
+        "id": "419284914",
+        "public": true,
+        "tags": [
+            "array"
+        ],
+        "name": "sum",
+        "submissions": 0,
+        "points": 100,
+        "description": "Write a program that reads a sequence of integers from the standard input and writes the sum of the integers to the standard output.\n\nInput: n a1 a2 ... an (n is the number of integers, a1, a2, ..., an are the integers)\nOutput: a1 + a2 + ... + an",
+        "test_cases": [
+            {
+                "input": "6 1 2 3 4 5 6",
+                "expected_output": "21",
+                "hidden": false
+            },
+            {
+                "input": "10 9 8 7 6 5 4 3 2 1 0",
+                "expected_output": "45",
+                "hidden": false
+            },
+            {
+                "input": "11 21 32 98 172 832 82 981 73 87123 2821 8382",
+                "expected_output": "100617",
+                "hidden": true
+            }
+        ],
+        "flag": "VSL{9r128r1hr912r981h2r}"
+    },
+    {
+        "id": "419284915",
+        "public": true,
+        "submissions": 0,
+        "tags": [
+            "array"
+        ],
+        "name": "max",
+        "points": 100,
+        "description": "Write a program that reads a sequence of integers from the standard input and writes the maximum of the integers to the standard output.\n\nInput: n a1 a2 ... an (n is the number of integers, a1, a2, ..., an are the integers)\nOutput: max(a1, a2, ..., an)",
+        "test_cases": [
+            {
+                "input": "6 1 2 3 4 5 6",
+                "expected_output": "6",
+                "hidden": false
+            },
+            {
+                "input": "10 9 8 7 6 5 4 3 2 1 0",
+                "expected_output": "9",
+                "hidden": false
+            },
+            {
+                "input": "11 21 32 98 172 832 82 981 73 87123 2821 8382",
+                "expected_output": "87123",
+                "hidden": true
+            }
+        ],
+        "flag": "VSL{9r128r1hr912r981h2r}"
+    }
+]
