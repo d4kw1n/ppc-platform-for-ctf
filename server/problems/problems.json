@@ -110,5 +110,44 @@
             }
         ],
         "flag": "VSL{9r128r1hr912r981h2r}"
+    },
+    {
+        "id": "9120931",
+        "public": true,
+        "submissions": 0,
+        "tags": [
+            "array"
+        ],
+        "name": "Mã Hóa Vòng Tròn",
+        "points": 100,
+        "description": "Bạn phát hiện một hệ thống mã hóa đặc biệt dựa trên cấu trúc vòng tròn. Trong hệ thống này, mỗi ký tự được biểu diễn trên một vòng tròn, và mã hóa được thực hiện bằng cách quay vòng các ký tự theo một quy tắc nhất định.\nCụ thể, hệ thống mã hóa sử dụng một từ khoá, và dịch chuyển mỗi ký tự trong tin nhắn đầu vào theo vị trí của từng ký tự trong từ khoá trên vòng tròn ký tự. Vòng tròn này bao gồm các ký tự từ A-Z. Mỗi ký tự trong từ khoá chỉ định số lượng vị trí quay cho mỗi ký tự tương ứng trong tin nhắn.\n\nNhiệm vụ của bạn là phát triển một thuật toán để giải mã các tin nhắn đã được mã hóa theo phương pháp này.\n\nĐầu vào:\n\nDòng đầu tiên chứa chuỗi ký tự là từ khoá (chỉ gồm các ký tự A-Z).\nDòng thứ hai chứa chuỗi ký tự đã mã hóa (chỉ gồm các ký tự A-Z).\nĐầu ra:\n\nChuỗi ký tự đã được giải mã.",
+        "test_cases": [
+            {
+                "input": "PCLXFTOD\nWDMSKDGWFRSKPRUYBCT",
+                "expected_output": "HBBVFKSTQPHNKYGVMAI",
+                "hidden": true
+            },
+            {
+                "input": "FXM\nXECLI",
+                "expected_output": "SHQGL",
+                "hidden": true
+            },
+            {
+                "input": "MNCRJYYCX\nDGVRDPJFQIRPJZ",
+                "expected_output": "RTTAURLDTWENSQ",
+                "hidden": false
+            },
+            {
+                "input": "HQMSEII\nZBSEYQN",
+                "expected_output": "SLGMUIF",
+                "hidden": false
+            },
+            {
+                "input": "IVY\nEBQRWCAMZXSR",
+                "expected_output": "WGSJBESRBPXT",
+                "hidden": false
+            }
+        ],
+        "flag": "VSL{9r128r1hr912r981h2r}"
     }
 ]
