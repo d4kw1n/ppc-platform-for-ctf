@@ -56,6 +56,10 @@ def problem(problem):
     print(problem_data)
     if problem_data is None:
         return "Problem not found", 404
+    testcase = problem_data['test_cases']
+    testcase = [test for test in testcase if test['hidden'] == True]
+    
+    problem_data['test_cases'] = testcase
     
     return render_template('problem.html', problem=problem_data)
 
